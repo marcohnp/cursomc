@@ -20,8 +20,13 @@ public class CategoriaService {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
 
-    public Categoria insert(Categoria obj) {
-        obj.setId(null);
-        return  repository.save(obj);
+    public Categoria insert(Categoria categoria) {
+        categoria.setId(null);
+        return  repository.save(categoria);
+    }
+
+    public Categoria update(Categoria categoria) {
+        findById(categoria.getId());
+        return repository.save(categoria);
     }
 }
