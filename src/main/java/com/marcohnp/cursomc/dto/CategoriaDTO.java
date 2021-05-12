@@ -4,7 +4,6 @@ import com.marcohnp.cursomc.domain.Categoria;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-
 import java.io.Serializable;
 
 public class CategoriaDTO implements Serializable {

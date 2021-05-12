@@ -1,10 +1,7 @@
 package com.marcohnp.cursomc.services;
 
-import com.marcohnp.cursomc.domain.Categoria;
 import com.marcohnp.cursomc.domain.Cliente;
-import com.marcohnp.cursomc.dto.CategoriaDTO;
 import com.marcohnp.cursomc.dto.ClienteDTO;
-import com.marcohnp.cursomc.repositories.CategoriaRepository;
 import com.marcohnp.cursomc.repositories.ClienteRepository;
 import com.marcohnp.cursomc.services.exceptions.DataIntegrityException;
 import com.marcohnp.cursomc.services.exceptions.ObjectNotFoundException;
