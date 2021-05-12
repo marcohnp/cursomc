@@ -12,11 +12,11 @@ import com.marcohnp.cursomc.services.exceptions.DataIntegrityException;
 import com.marcohnp.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +47,7 @@ public class ClienteService {
         clienteAtualizado.setEmail(cliente.getEmail());
     }
 
-    @Transient
+    @Transactional
     public Cliente insert(Cliente cliente) {
         cliente.setId(null);
         cliente = clienteRepository.save(cliente);
