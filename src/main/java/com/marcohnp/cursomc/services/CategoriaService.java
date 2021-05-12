@@ -63,4 +63,5 @@ public class CategoriaService {
     public Categoria fromDTO(CategoriaDTO categoriaDTO){
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
+
 }
