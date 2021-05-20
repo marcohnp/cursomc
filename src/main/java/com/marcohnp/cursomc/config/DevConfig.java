@@ -1,6 +1,8 @@
 package com.marcohnp.cursomc.config;
 
 import com.marcohnp.cursomc.services.DBService;
+import com.marcohnp.cursomc.services.EmailService;
+import com.marcohnp.cursomc.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -30,4 +32,10 @@ public class DevConfig {
 
         return true;
     }
+
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
+    }
+
 }
