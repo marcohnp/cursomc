@@ -19,7 +19,7 @@ import java.util.Optional;
 public class PedidoService {
 
     @Autowired
-    private PedidoRepository repository;
+    private ClienteService clienteService;
 
     @Autowired
     private ProdutoService produtoService;
@@ -28,13 +28,16 @@ public class PedidoService {
     private BoletoService boletoService;
 
     @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
     private PagamentoRepository pagamentoRepository;
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
     public Pedido findById(Integer id){
-        Optional<Pedido> objeto = repository.findById(id);
+        Optional<Pedido> objeto = pedidoRepository.findById(id);
         return objeto.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
@@ -43,21 +46,23 @@ public class PedidoService {
     public Pedido insert(Pedido pedido) {
         pedido.setId(null);
         pedido.setInstante(new Date());
+        pedido.setCliente(clienteService.findById(pedido.getCliente().getId()));
         pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         pedido.getPagamento().setPedido(pedido);
         if (pedido.getPagamento() instanceof PagamentoComBoleto) {
             PagamentoComBoleto pagto = (PagamentoComBoleto) pedido.getPagamento();
             boletoService.preencherPagamentoComBoleto(pagto, pedido.getInstante());
         }
-        pedido = repository.save(pedido);
+        pedido = pedidoRepository.save(pedido);
         pagamentoRepository.save(pedido.getPagamento());
         for (ItemPedido ip : pedido.getItens()) {
             ip.setDesconto(0.0);
-            ip.setPreco(produtoService.findById(ip.getProduto().getId()).getPreco());
+            ip.setProduto(produtoService.findById(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
             ip.setPedido(pedido);
         }
         itemPedidoRepository.saveAll(pedido.getItens());
-
+        System.out.println(pedido);
         return pedido;
     }
 }
