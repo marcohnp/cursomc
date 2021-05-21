@@ -16,7 +16,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<start-class>com.marcohnp.cursomc.CursomcApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -79,9 +78,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.marcohnp.cursomc.CursomcApplication</mainClass>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
